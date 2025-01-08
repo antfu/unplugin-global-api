@@ -163,13 +163,19 @@ export interface Options {
   parser?: UnimportOptions['parser']
 
   /**
-   * Filepath to generate corresponding .d.ts file.
-   * Default enabled when `typescript` is installed locally.
-   * Set `false` to disable.
-   *
-   * @default './auto-imports.d.ts'
+   * Specifies the file path for generating the corresponding .d.ts file.
+   * This option is enabled by default when `typescript` is installed locally.
+   * Set to `false` to disable this feature.
    */
   dts?: string | boolean
+
+  /**
+   * Mode for generating the .d.ts file.
+   * - `overwrite`: overwrite the whole existing .d.ts file with the new type definitions.
+   * - `append`: only append the new type definitions to the existing .d.ts file, means the existing type definitions will be kept.
+   * @default 'append'
+   */
+  dtsMode?: 'overwrite' | 'append'
 
   /**
    * Auto import inside Vue templates

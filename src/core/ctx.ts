@@ -18,6 +18,7 @@ export function createContext(options: Options = {}, root = process.cwd()) {
 
   const {
     dts: preferDTS = isPackageExists('typescript'),
+    dtsMode = 'append',
     dirsScanOptions,
     dirs,
     vueDirectives,
@@ -143,19 +144,21 @@ ${dts}`.trim()}\n`
         return i.from
       },
     })
-    const currentDTS = parseDTS(currentContent)!
     if (options.vueTemplate) {
       currentContent = currentContent.replace(
         componentCustomPropertiesReg,
         $1 => `interface GlobalComponents {}\n  ${$1}`,
       )
     }
-    if (originalDTS) {
-      Object.keys(currentDTS).forEach((key) => {
-        originalDTS[key] = currentDTS[key]
-      })
-      const dtsList = Object.keys(originalDTS).sort().map(k => `  ${k}: ${originalDTS[k]}`)
-      return currentContent.replace(dtsReg, () => `declare global {\n${dtsList.join('\n')}\n}`)
+
+    if (dtsMode === 'append') {
+      const currentDTS = parseDTS(currentContent)!
+      if (originalDTS) {
+        Object.assign(originalDTS, currentDTS)
+
+        const dtsList = Object.keys(originalDTS).sort().map(k => `  ${k}: ${originalDTS[k]}`)
+        return currentContent.replace(dtsReg, () => `declare global {\n${dtsList.join('\n')}\n}`)
+      }
     }
 
     return currentContent

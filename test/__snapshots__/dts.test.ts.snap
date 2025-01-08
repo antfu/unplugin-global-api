@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`dts 1`] = `
+exports[`dts > normal 1`] = `
 "/* eslint-disable */
 /* prettier-ignore */
 // @ts-nocheck

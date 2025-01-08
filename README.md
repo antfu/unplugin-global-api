@@ -302,6 +302,12 @@ AutoImport({
   // Set `false` to disable.
   dts: './auto-imports.d.ts',
 
+  // The mode for generating the .d.ts file.
+  // 'overwrite': overwrite the whole existing .d.ts file with the new type definitions.
+  // 'append': only append the new type definitions to the existing .d.ts file, means the existing type definitions will be kept.
+  // Default to 'append'
+  dtsMode: 'append',
+
   // Array of strings of regexes that contains imports meant to be ignored during
   // the declaration file generation. You may find this useful when you need to provide
   // a custom signature for a function.
